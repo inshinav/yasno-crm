@@ -19,8 +19,11 @@ rm -rf _deploy/yasno-crm && mkdir -p _deploy && cp -r dist _deploy/yasno-crm
 
 ## 2. Заливка (scp → VPS)
 
+Хост — публичный домен `inshinlab.com` (тот же VPS; внутренний алиас `kewvvegxjv`
+из локального `~/.ssh/config` тоже подойдёт, если он настроен).
+
 ```bash
-scp -r _deploy/yasno-crm root@kewvvegxjv:/var/www/html/
+scp -r _deploy/yasno-crm root@inshinlab.com:/var/www/html/
 ```
 
 ## 3. nginx-маршрут (один раз)
@@ -49,5 +52,6 @@ curl -s  https://inshinlab.com/yasno-crm/ | grep -o '<title>[^<]*'
 
 ---
 
-**Доступ:** серверные шаги (scp/nginx/chmod) исторически Alex запускает руками — команды
-выше готовы к копипасту. После заливки проверяю результат через `curl`.
+**Доступ:** ИИ не авторизован по SSH на прод (ключ не в `authorized_keys`) — серверные шаги
+(scp/nginx/chmod) Alex запускает руками с этой машины, где лежит собранный `_deploy/yasno-crm`.
+Команды выше готовы к копипасту. После заливки результат проверяется через `curl`.
