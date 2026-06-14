@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Бренд-токены Ясно (CRM-стратегия) ────────────────────────────────
+   Семья с хабом Growth OS: тёплая бумага + синий-герой + clay скупо.
+   Своя сигнатура: --care (зелёный заботы) для позитивных исходов.
+   НЕ дефолтный кремовый-serif AI-look — синий герой, шрифт rounded-sans.   */
+:root {
+  --paper: #f5f0e8; /* тёплый off-white фон */
+  --surface: #ece4d6; /* тёплая карточка/секция */
+  --surface-2: #e4daccf2; /* вложенная поверхность / hover */
+  --ink: #15161a; /* основной текст */
+  --ink-soft: #4a4a52; /* вторичный текст */
+  --blue: #2f6bff; /* ГЕРОЙ-акцент */
+  --blue-deep: #1e3fa8; /* синий для текста на светлом — контраст AA */
+  --clay: #c9745a; /* тёплый второстепенный акцент / трение, СКУПО */
+  --clay-deep: #9e4a32; /* clay для текста на светлом — контраст AA */
+  --care: #6ba98c; /* мягкий «заботливый» зелёный, позитивный исход, СКУПО */
+  --care-deep: #2f6e52; /* care для текста на светлом — контраст AA */
+  --line: rgba(21, 22, 26, 0.1); /* хайрлайн-разделители */
+
+  /* Эмоциональные состояния узлов карты — тональная шкала, не кричащие.
+     Дуга: закрыто/холодно → тепло → доверие(blue) → исход(care).      */
+  --state-guarded: #8d909c; /* сомнение: приглушённый серо-сланцевый */
+  --state-curious: #a59a86; /* диагностика: тёплый нейтральный */
+  --state-uncertain: #8f9bb3; /* подбор: прохладный, «решаюсь» */
+  --state-warm: #c69a86; /* установочная: тёплый, волнение */
+  --state-critical: #2f6bff; /* переход 1→2 ★: герой-синий, активация */
+  --state-alliance: #5b86e0; /* рабочий альянс: доверие */
+  --state-fatigue: #c9745a; /* плато: трение/риск (clay) */
+  --state-searching: #c08a5e; /* re-match: поиск своего — приглушённая охра в семье clay */
+  --state-closure: #6ba98c; /* завершение/пауза: исход (care) */
+  --state-return: #6ea394; /* возвращение: прохладный care-зелёный, не бирюза */
+  --state-advocate: #5b9b7e; /* адвокат: благодарность (care, глубже) */
+}
+
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: theme('fontFamily.sans');
+    font-feature-settings: 'cv01', 'cv03', 'ss01';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: rgba(47, 107, 255, 0.18);
+    color: var(--ink);
+  }
+
+  /* Видимый keyboard-focus на всём интерактивном */
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: theme('fontFamily.display');
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Mono eyebrow-лейбл: 03 · ПУТЬ КЛИЕНТА */
+  .eyebrow {
+    font-family: theme('fontFamily.mono');
+    font-size: 0.72rem;
+    line-height: 1;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  /* Моноширинные данные: метрики, триггеры, лейблы каскада */
+  .data-mono {
+    font-family: theme('fontFamily.mono');
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+  }
+
+  .shell {
+    width: 100%;
+    max-width: theme('maxWidth.shell');
+    margin-inline: auto;
+    padding-inline: clamp(20px, 5vw, 56px);
+  }
+
+  .hairline {
+    height: 1px;
+    width: 100%;
+    background: var(--line);
+  }
+
+  /* Базовая карточка-поверхность */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: theme('borderRadius.card');
+    box-shadow: theme('boxShadow.card');
+  }
+
+  /* Mono-чип для лейблов/триггеров */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-family: theme('fontFamily.mono');
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.34em 0.66em;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+}
+
+/* Тонкая бумажная зернистость фона — характер, не декор. Очень скупо. */
+.paper-grain {
+  background-image: radial-gradient(rgba(21, 22, 26, 0.022) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
